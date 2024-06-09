@@ -1,11 +1,12 @@
 import { getProjects } from "@/sanity/sanity-utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function HomePage() {
   const projects = await getProjects();
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl gap-4 py-20">
+    <main className="mx-auto min-h-screen max-w-6xl py-20">
       <h1 className="text-7xl font-extrabold">
         Hello I&apos;m{" "}
         <span className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-transparent">
@@ -19,9 +20,10 @@ export default async function HomePage() {
       <h2 className="mt-24 text-3xl font-bold text-gray-700">My Projects</h2>
       <div className="mt-5 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <div
+          <Link
+            href={`/projects/${project.slug}`}
             key={project._id}
-            className="rounded-lg border border-gray-500 p-3"
+            className="space-y-1 rounded-lg border border-gray-500 p-3 transition-transform duration-300 ease-in-out hover:scale-105 hover:border-gray-900"
           >
             {project.imageUrl && (
               <Image
@@ -29,13 +31,13 @@ export default async function HomePage() {
                 alt={project.name}
                 width={250}
                 height={100}
-                className="rounded-lg border border-gray-500 object-cover"
+                className="h-40 w-full rounded-lg border border-gray-500 object-cover"
               />
             )}
             <h3 className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text font-extrabold text-transparent">
               {project.name}
             </h3>
-          </div>
+          </Link>
         ))}
       </div>
     </main>
