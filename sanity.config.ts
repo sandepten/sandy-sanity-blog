@@ -1,3 +1,4 @@
+import schemas from "@/sanity/schemas";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 
@@ -7,6 +8,9 @@ const config = defineConfig({
   title: "Sandy Sanity Blog",
   basePath: "/admin",
   plugins: [structureTool()],
+  schema: {
+    types: schemas,
+  },
 });
 
 export default config;
