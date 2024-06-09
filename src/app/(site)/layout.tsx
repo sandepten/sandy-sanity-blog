@@ -1,3 +1,4 @@
+import { getPages } from "@/sanity/sanity-utils";
 import "@/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
@@ -9,23 +10,37 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pages = await getPages();
+
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="mx-auto min-h-screen max-w-6xl py-10">
-        <nav>
+        <nav className="flex items-center justify-between pb-10">
           <Link
             href="/"
-            className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text py-10 text-lg font-bold text-transparent"
+            className="bg-gradient-to-r from-orange-400 via-red-500 to-purple-600 bg-clip-text text-lg font-bold text-transparent"
           >
             Sandy
           </Link>
+          <ul className="mt-5 flex space-x-5">
+            {pages.map((page) => (
+              <li key={page._id}>
+                <Link
+                  href={`/${page.slug}`}
+                  className="text-sm font-bold text-gray-600 hover:text-gray-900"
+                >
+                  {page.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
-        <main className="py-20">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );
