@@ -1,3 +1,4 @@
+import { type ProjectType } from "@/types/project";
 import { createClient, groq } from "next-sanity";
 
 const client = createClient({
@@ -16,15 +17,5 @@ export async function getProjects() {
     content
   }`;
 
-  return client.fetch<
-    Array<{
-      _id: string;
-      _createdAt: string;
-      name: string;
-      slug: string;
-      imageUrl: string;
-      url: string;
-      content: string;
-    }>
-  >(query);
+  return client.fetch<ProjectType[]>(query);
 }
