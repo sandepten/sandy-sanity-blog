@@ -7,6 +7,7 @@ const config = defineConfig({
   dataset: "production",
   title: "Sandy Sanity Blog",
   basePath: "/admin",
+  apiVersion: "2024-06-09",
   plugins: [structureTool()],
   schema: {
     types: schemas,
